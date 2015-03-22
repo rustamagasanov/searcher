@@ -14,7 +14,7 @@ class SearchService
   def search
     # generate results array and sort by relevance
     data.inject([]) do |results, hash|
-      # if we found exact match in programming language name, return it
+      # if we found exact programming language name, return it
       if hash['Name'].downcase == q.downcase
         break [hash.merge({ rel: 0 })]
       end
@@ -22,9 +22,6 @@ class SearchService
       # from { "Name" => "A+", "Type" => "Array", "Designed by" => "Arthur Whitney" }
       # to   "a+ array arthur whitney"
       hash_data = hash.values.join(' ').downcase
-
-      # split search string into words
-      search_words = q.split(' ').map(&:downcase)
 
       # if all search words were found: add rel 0
       if search_words.all? { |search_word| hash_data.include?(search_word) }
@@ -38,6 +35,10 @@ class SearchService
 
       results
     end.sort_by { |i| i[:rel] }
+  end
+
+  def search_words
+    @search_words ||= q.split(' ').map(&:downcase)
   end
 
   def data
