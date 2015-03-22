@@ -3,8 +3,6 @@ class HomeController < ApplicationController
   end
 
   def search
-    # @q = params[:q]
     @results = SearchService.new(params[:q]).run
-    render :index
   end
 end

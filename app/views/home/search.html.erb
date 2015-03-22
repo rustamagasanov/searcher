@@ -1,0 +1,24 @@
+<% if @results.present? %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Designed By</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @results.each do |hash| %>
+      <tr class="<%= 'success' if hash[:rel] == 0 %>">
+        <td><%= hash['Name'] %>
+        <td><%= hash['Type'] %>
+        <td><%= hash['Designed by'] %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="col-md-8 col-md-offset-2">
+    Nothing was found...
+  </div>
+<% end %>

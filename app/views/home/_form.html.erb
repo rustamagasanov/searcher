@@ -1,0 +1,5 @@
+<%= form_tag('/search', method: "get", class: "form-inline") do %>
+  <%= text_field_tag(:q, params[:q], class: "form-control input-lg", placeholder: "Search..." ) %>
+<% end %>
+
+

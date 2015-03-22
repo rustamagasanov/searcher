@@ -15,7 +15,7 @@ RSpec.describe HomeController, type: :controller do
     end
 
     it { expect(get: '/search').to route_to('home#search') }
-    it { expect(get :search).to render_template(:index) }
+    it { expect(get :search).to render_template(:search) }
 
     it 'should initialize search service with search string' do
       expect(SearchService).to receive(:new).with(q)
