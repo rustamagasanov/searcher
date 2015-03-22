@@ -27,15 +27,16 @@ class SearchService
       search_words = q.split(' ').map(&:downcase)
 
       # if all search words were found: add rel 0
-      # elsif any match found: add rel 1
-      # else: do nothing with results array
       if search_words.all? { |search_word| hash_data.include?(search_word) }
-        results << hash.merge({ rel: 0 })
-      elsif search_words.map { |search_word| hash_data.scan(/#{search_word}/).any? }.any?
-        results << hash.merge({ rel: 1 })
-      else
-        results
+        next results << hash.merge({ rel: 0 })
       end
+
+      # if any match found: add rel 1
+      if search_words.map { |search_word| hash_data.scan(/#{search_word}/).any? }.any?
+        next results << hash.merge({ rel: 1 })
+      end
+
+      results
     end.sort_by { |i| i[:rel] }
   end
 
